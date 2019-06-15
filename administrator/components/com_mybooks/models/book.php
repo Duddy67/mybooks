@@ -184,40 +184,20 @@ class MybooksModelBook extends JModelAdmin
 
     // Initializes some variables.
     $post = JFactory::getApplication()->input->post->getArray();
-    $sortByMainCat = $sortBySingleCat = false;
     $catId = null;
 
-    // No category is selected.
-    if(!isset($post['filter']['category_id'])) {
-      $sortByMainCat = true;
-    }
-    // Only one category is selected.
-    elseif(count($post['filter']['category_id']) == 1) {
-      $sortBySingleCat = true;
+    // Ensures that one and only one category is selected.
+    if(isset($post['filter']['category_id']) && count($post['filter']['category_id']) == 1) {
+      // Get the selected category.
       $catId = $post['filter']['category_id'][0];
-    }
-
-    // N.B: Items are not sorted if several categories are selected.
-    if($sortBySingleCat || $sortByMainCat) {
 
       $db = $this->getDbo();
       $query = $db->getQuery(true);
 
       // Collects the items from the mapping table in order to get the ordering value.
       $query->select('book_id, cat_id, ordering')
-	    ->from('#__mybooks_book_cat_map');
-
-      if($sortByMainCat) {
-	// Gets the main category id (ie: catid) from the item table. 
-	$query->join('INNER', '#__mybooks_book ON id=book_id')
-	      ->where('cat_id=catid');
-      }
-      // sortBySingleCat
-      else {
-	$query->where('cat_id='.(int)$catId);
-      }
-
-      $query->where('book_id IN('.implode(',', $pks).')');
+	    ->from('#__mybooks_book_cat_map')
+	    ->where('cat_id='.(int)$catId);
       $db->setQuery($query);
       $items = $db->loadAssocList('book_id');
 

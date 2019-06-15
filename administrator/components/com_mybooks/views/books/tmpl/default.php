@@ -27,22 +27,13 @@ $trashed = $this->state->get('filter.published') == -2 ? true : false;
 $canOrder = $user->authorise('core.edit.state', 'com_mybooks.category');
 $saveOrder = $listOrder == 'cm.ordering';
 
-// Checks if only the global category filter is selected.
-$catFilter = $filterMultipleCat = false;
-$catId = null;
-
-if($this->state->get('filter.category_id') !== null) {
-  // Ensures that only one category is selected.
-  if(count($this->state->get('filter.category_id')) == 1) {
-    $catId = $this->state->get('filter.category_id')[0];
-    $catFilter = true;
-  }
-  else {
-    $filterMultipleCat = true;
-  }
+$selectedCatId = 0;
+// Ensures that one and only one category is selected.
+if($this->state->get('filter.category_id') !== null && count($this->state->get('filter.category_id')) == 1) {
+  $selectedCatId = $this->state->get('filter.category_id')[0];
 }
 
-if($saveOrder && !$filterMultipleCat) {
+if($saveOrder && $selectedCatId) {
   $saveOrderingUrl = 'index.php?option=com_mybooks&task=books.saveOrderAjax&tmpl=component';
   JHtml::_('sortablelist.sortable', 'bookList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
@@ -134,17 +125,9 @@ echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this))
       $canEditOwn = $user->authorise('core.edit.own', 'com_mybooks.book.'.$item->id) && $item->created_by == $userId;
       $canCheckin = $user->authorise('core.manage','com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
       $canChange = ($user->authorise('core.edit.state','com_mybooks.book.'.$item->id) && $canCheckin); 
-
-      // Main category is the group id by default.
-      $sortableGroupId = $item->catid;
-
-      if ($catFilter) {
-	// Group by global category id.
-	$sortableGroupId = $catId;
-      }
       ?>
 
-      <tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $sortableGroupId; ?>">
+      <tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $selectedCatId; ?>">
 	<td class="order nowrap center hidden-phone">
 	  <?php
 	  $iconClass = '';
@@ -152,15 +135,15 @@ echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this))
 	  {
 	    $iconClass = ' inactive';
 	  }
-	  elseif(!$saveOrder || $filterMultipleCat)
+	  elseif(!$saveOrder || !$selectedCatId)
 	  {
-	    $iconClass = ' inactive tip-top hasTooltip" title="' . JHtml::tooltipText('JORDERINGDISABLED');
+	    $iconClass = ' inactive tip-top hasTooltip" title="' . JHtml::tooltipText('COM_MYBOOKS_ORDERING_DISABLED');
 	  }
 	  ?>
 	  <span class="sortable-handler<?php echo $iconClass ?>">
 		  <i class="icon-menu"></i>
 	  </span>
-	  <?php if($canChange && $saveOrder && !$filterMultipleCat) : ?>
+	  <?php if($canChange && $saveOrder && $selectedCatId) : ?>
 	      <input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering;?>" class="width-20 text-area-order " />
 	  <?php endif; ?>
 	  </td>

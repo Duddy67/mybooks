@@ -149,7 +149,7 @@ class MybooksHelper
     $db->setQuery($query);
 
     if($db->loadResult()) {
-      JFactory::getApplication()->enqueueMessage(JText::_('COM_MYBOOKS_WARNING_CATEGORY_USED_AS_MAIN_CATEGORY'), 'warning');
+      JFactory::getApplication()->enqueueMessage(JText::_('COM_MYBOOKS_WARNING_CATEGORY_USED_AS_MAIN_CATEGORY'), 'error');
       return false;
     }
 
@@ -221,7 +221,7 @@ class MybooksHelper
 	    {
 	      if ($pathParts = explode('/', $category->path))
 	      {
-		foreach ($pathParts as $alias)
+		foreach ($pathParts as $i => $alias)
 		{
 		  if (isset($aliasesMapper[$alias]))
 		  {
@@ -230,6 +230,11 @@ class MybooksHelper
 		  else
 		  {
 		    $namesPath[] = $alias;
+		  }
+
+		  // Unpublished categories are put into square bracket.
+		  if($category->published == 0 && ($i + 1) == $category->level) {
+		    $namesPath[$i] = '['.$namesPath[$i].']';
 		  }
 		}
 

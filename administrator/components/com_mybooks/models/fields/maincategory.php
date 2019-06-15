@@ -38,7 +38,7 @@ class JFormFieldMaincategory extends JFormFieldList
     // Gets the categories linked to the item.
     $db = JFactory::getDbo();
     $query = $db->getQuery(true);
-    $query->select('cm.cat_id, c.path, c.language')
+    $query->select('cm.cat_id, c.path, c.language, c.published, c.level')
 	  ->from('#__mybooks_book_cat_map AS cm')
 	  ->join('LEFT', '#__categories AS c ON c.id=cm.cat_id')
 	  ->where('cm.book_id='.(int)$this->form->getValue('id'))
