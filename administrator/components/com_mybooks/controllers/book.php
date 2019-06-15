@@ -1,7 +1,7 @@
 <?php
 /**
  * @package My Books
- * @copyright Copyright (c) 2017 - 2019 Lucas Sanner
+ * @copyright Copyright (c) 2019 - 2019 Lucas Sanner
  * @license GNU General Public License version 3, or later
  */
 
@@ -32,8 +32,6 @@ class MybooksControllerBook extends JControllerForm
     // Saves the modified jform data array 
     //$this->input->post->set('jform', $data);
 
-var_dump($data);
-//return;
     // Hands over to the parent function.
     return parent::save($key, $urlVar);
   }

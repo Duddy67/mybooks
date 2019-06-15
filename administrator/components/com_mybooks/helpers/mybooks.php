@@ -1,7 +1,7 @@
 <?php
 /**
  * @package My Books
- * @copyright Copyright (c) 2017 - 2019 Lucas Sanner
+ * @copyright Copyright (c) 2019 - 2019 Lucas Sanner
  * @license GNU General Public License version 3, or later
  */
 
@@ -159,7 +159,7 @@ class MybooksHelper
 
   /**
    * Function that converts categories paths into paths of names
-   * N.B: Adapted from the same function used with tags. libraries/src/Helper/TagsHelper.php
+   * N.B: Adapted from the function used with tags. libraries/src/Helper/TagsHelper.php
    *
    * @param   array  $categories  Array of categories
    *

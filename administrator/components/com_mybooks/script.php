@@ -1,7 +1,7 @@
 <?php
 /**
  * @package My Books 1.x
- * @copyright Copyright (c) 2017 - 2019 Lucas Sanner
+ * @copyright Copyright (c) 2019 - 2019 Lucas Sanner
  * @license GNU General Public License version 3, or later
  */
 
