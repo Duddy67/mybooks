@@ -35,9 +35,9 @@ defined('JPATH_BASE') or die('Restricted access');
       <?php $title = $this->escape($displayData['item']->category_title); ?>
       <?php if ($displayData['params']->get('link_category') && $displayData['item']->catslug) : ?>
 	<?php $url = '<a href="'.JRoute::_(MybooksHelperRoute::getCategoryRoute($displayData['item']->catslug)).'" itemprop="genre">'.$title.'</a>'; ?>
-	<?php echo JText::sprintf('COM_MYBOOKS_CATEGORY', $url); ?>
+	<?php echo JText::sprintf('COM_MYBOOKS_MAIN_CATEGORY', $url); ?>
       <?php else : ?>
-	<?php echo JText::sprintf('COM_MYBOOKS_CATEGORY', '<span itemprop="genre">'.$title.'</span>'); ?>
+	<?php echo JText::sprintf('COM_MYBOOKS_MAIN_CATEGORY', '<span itemprop="genre">'.$title.'</span>'); ?>
       <?php endif; ?>
     </dd>
   <?php endif; ?>

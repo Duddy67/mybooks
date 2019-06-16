@@ -85,6 +85,7 @@ class MybooksViewCategory extends JViewCategory
     $this->user = JFactory::getUser();
     $this->uri = JUri::getInstance();
     $this->pagination = $this->get('Pagination');
+    $model = JModelLegacy::getInstance('Book', 'MybooksModel');
 
     // Prepare the data.
     // Compute the book slugs.
@@ -96,6 +97,8 @@ class MybooksViewCategory extends JViewCategory
       if($item->parent_alias == 'root') {
 	$item->parent_slug = null;
       }
+
+      $item->categories = $model->getCategories($item->id);
     }
 
     // Check for layout override only if this is not the active menu item

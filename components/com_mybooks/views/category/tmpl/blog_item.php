@@ -28,6 +28,10 @@ $params = $this->item->params;
     <?php echo JLayoutHelper::render('book.info_block', array('item' => $this->item, 'params' => $params)); ?>
   <?php endif; ?>
 
+  <?php if($params->get('show_categories', 1)) : 
+	  echo JLayoutHelper::render('book.categories', array('item' => $this->item, 'current_cat_id' => $this->state->get('category.id'))); 
+       endif; ?>
+
   <?php echo $this->item->intro_text; ?>
 
   <?php if($params->get('show_tags', 1) && !empty($this->item->tags->itemTags)) : ?>

@@ -44,11 +44,21 @@
 	       <option value="0">JHIDE</option>
 	</field>
 
+	<field name="show_categories"
+	       type="radio"
+	       default="1"
+	       class="btn-group btn-group-yesno"
+	       label="COM_MYBOOKS_SHOW_CATEGORIES_LABEL"
+	       description="COM_MYBOOKS_SHOW_CATEGORIES_DESC">
+	       <option value="1">JSHOW</option>
+	       <option value="0">JHIDE</option>
+	</field>
+
 	<field name="show_category"
 	       type="radio"
 	       default="1"
 	       class="btn-group btn-group-yesno"
-	       label="JGLOBAL_SHOW_CATEGORY_LABEL"
+	       label="COM_MYBOOKS_SHOW_CATEGORY_LABEL"
 	       description="COM_MYBOOKS_SHOW_CATEGORY_DESC">
 	       <option value="1">JSHOW</option>
 	       <option value="0">JHIDE</option>
@@ -58,7 +68,7 @@
 	       type="radio"
 	       default="1"
 	       class="btn-group btn-group-yesno"
-	       label="JGLOBAL_LINK_CATEGORY_LABEL"
+	       label="COM_MYBOOKS_LINK_CATEGORY_LABEL"
 	       description="COM_MYBOOKS_LINK_CATEGORY_DESC">
 	       <option value="1">JYES</option>
 	       <option value="0">JNO</option>

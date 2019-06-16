@@ -78,10 +78,10 @@ class MybooksModelCategory extends JModelList
 	      'title', 'b.title',
 	      'author', 'b.author',
 	      'created', 'b.created',
-	      'catid', 'b.catid', 'category_title',
+	      'catid', 'b.catid', 'cm.cat_id', 'category_title',
 	      'modified', 'b.modified',
 	      'published', 'b.published',
-	      'ordering', 'b.ordering',
+	      'ordering', 'cm.ordering',
 	      'publish_up', 'b.publish_up',
 	      'publish_down', 'b.publish_down'
       );
@@ -336,10 +336,12 @@ class MybooksModelCategory extends JModelList
 	                           'b.checked_out,b.checked_out_time,b.created,b.created_by,b.access,b.params,b.metadata,'.
 				   'b.metakey,b.metadesc,b.hits,b.publish_up,b.publish_down,b.language,b.modified,b.modified_by'))
 	  ->from($db->quoteName('#__mybooks_book').' AS b')
-	  // Display books of the current category.
-	  ->where('b.catid='.(int)$this->getState('category.id'));
+	  // Join over the mapping table to get the book ids.
+	  ->join('INNER', '#__mybooks_book_cat_map AS cm on cm.book_id = b.id')
+	  // Display books linked to the current category.
+	  ->where('cm.cat_id='.(int)$this->getState('category.id'));
 
-    // Join on category table.
+    // Join on category table to get the main item category.
     $query->select('ca.title AS category_title, ca.alias AS category_alias, ca.access AS category_access')
 	  ->join('LEFT', '#__categories AS ca on ca.id = b.catid');
 

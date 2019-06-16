@@ -133,6 +133,8 @@ class MybooksModelBook extends JModelItem
 	}
       }
 
+      $data->categories = $this->getCategories();
+
       // Get the tags
       $data->tags = new JHelperTags;
       $data->tags->getItemTags('com_mybooks.book', $data->id);
@@ -141,6 +143,29 @@ class MybooksModelBook extends JModelItem
     }
 
     return $this->_item[$pk];
+  }
+
+
+  /**
+   * Returns the id of the categories bound to a given item.
+   *
+   * @param   integer  $pk  The id of the primary key.
+   *
+   * @return  array	    The category ids.
+   */
+  public function getCategories($pk = null)
+  {
+    $pk = (!empty($pk)) ? $pk : (int)$this->getState('book.id');
+
+    $db = $this->getDbo();
+    $query = $db->getQuery(true);
+    $query->select('id, title, alias, language')
+	  ->from('#__mybooks_book_cat_map')
+	  ->join('INNER', '#__categories ON id=cat_id')
+	  ->where('book_id='.(int)$pk);
+    $db->setQuery($query);
+
+    return $db->loadObjectList();
   }
 
 

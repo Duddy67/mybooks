@@ -35,6 +35,8 @@ $item = $this->item;
     <?php echo JLayoutHelper::render('book.info_block', array('item' => $item, 'params' => $params)); ?>
   <?php endif; ?>
 
+  <?php echo JLayoutHelper::render('book.categories', array('item' => $this->item)); ?>
+
   <?php if($item->params->get('show_intro')) : ?>
     <?php echo $item->intro_text; ?>
   <?php endif; ?>
