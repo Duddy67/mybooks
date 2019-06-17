@@ -1,7 +1,7 @@
 <?php
 /**
  * @package My Books
- * @copyright Copyright (c) 2017 - 2019 Lucas Sanner
+ * @copyright Copyright (c) 2019 - 2019 Lucas Sanner
  * @license GNU General Public License version 3, or later
  */
 
@@ -76,19 +76,22 @@ Joomla.submitbutton = function(task)
 	      <?php echo $this->form->renderField('title'); ?>
 	      <?php echo $this->form->renderField('alias'); ?>
 
-	      <?php if($this->form->getValue('id') != 0) : //Existing item. ?>
-
-	      <?php endif; ?>
-
 	      <?php
 		echo $this->form->getControlGroup('booktext');
 	      ?>
 	      </div>
 
 	      <div class="tab-pane" id="publishing">
-		<?php echo $this->form->getControlGroup('catid'); ?>
-		<?php echo $this->form->getControlGroup('tags'); ?>
-		<?php echo $this->form->getControlGroup('access'); ?>
+		<?php echo $this->form->getControlGroup('catids'); 
+
+		      // Existing item.
+		      if($this->form->getValue('id') != 0) {
+		        echo $this->form->getControlGroup('catid'); 
+		      }
+			
+		      echo $this->form->getControlGroup('tags'); 
+		      echo $this->form->getControlGroup('access');
+		  ?>
 
 		<?php if($this->item->params->get('access-change')) : ?>
 		  <?php echo $this->form->getControlGroup('published'); ?>

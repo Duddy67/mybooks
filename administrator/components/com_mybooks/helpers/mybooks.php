@@ -149,7 +149,7 @@ class MybooksHelper
     $db->setQuery($query);
 
     if($db->loadResult()) {
-      JFactory::getApplication()->enqueueMessage(JText::_('COM_MYBOOKS_WARNING_CATEGORY_USED_AS_MAIN_CATEGORY'), 'error');
+      JFactory::getApplication()->enqueueMessage(JText::_('COM_MYBOOKS_WARNING_CATEGORY_USED_AS_MAIN_CATEGORY'), 'warning');
       return false;
     }
 

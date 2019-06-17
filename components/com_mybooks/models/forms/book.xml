@@ -21,10 +21,18 @@
 	       hint="JFIELD_ALIAS_PLACEHOLDER" class="inputbox" />
 
 	<!-- layout: global -->
-	<field name="catid" type="categoryedit"
-	       label="JCATEGORY" 
-	       description="JFIELD_CATEGORY_DESC"
+	<field name="catids" type="categoryedit"
+	       label="COM_MYBOOKS_FIELD_CATEGORIES_LABEL" 
+	       description="COM_MYBOOKS_FIELD_CATEGORIES_DESC"
+	       multiple="true"
+	       extension="com_mybooks"
 	       required="true">
+	</field>
+
+	<field name="catid" type="maincategory"
+	       addfieldpath="/administrator/components/com_mybooks/models/fields"
+	       label="COM_MYBOOKS_FIELD_MAIN_CATEGORY_LABEL" 
+	       description="COM_MYBOOKS_FIELD_MAIN_CATEGORY_DESC">
 	</field>
 
 	<field name="language" type="contentlanguage" 

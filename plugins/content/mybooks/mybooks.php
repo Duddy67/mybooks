@@ -1,7 +1,7 @@
 <?php
 /**
  * @package My Books
- * @copyright Copyright (c)2016 - 2019 Lucas Sanner
+ * @copyright Copyright (c)2019 - 2019 Lucas Sanner
  * @license GNU General Public License version 3, or later
  */
 
@@ -50,13 +50,6 @@ class plgContentMybooks extends JPlugin
    */
   public function onContentBeforeSave($context, $data, $isNew)
   {
-    if($context == 'com_categories.category') {
-      // Ensures that the trashed or archived category is not used as main category by one or more books.
-      if((int)$data->id && ($data->published == 2 || $data->published == -2) && !MybooksHelper::checkMainCategory($data->id)) {
-	return false;
-      }
-    }
-
     return true;
   }
 
@@ -77,15 +70,6 @@ class plgContentMybooks extends JPlugin
       // Ensures that the deleted category is not used as main category by one or more books.
       if(!MybooksHelper::checkMainCategory($data->id)) {
 	return false;
-      }
-      else {
-	$db = JFactory::getDbo();
-	$query = $db->getQuery(true);
-	// Deletes all the rows linked to the category id. 
-	$query->delete('#__mybooks_book_cat_map')
-	      ->where('cat_id='.(int)$data->id);
-	$db->setQuery($query);
-	$db->execute();
       }
     }
 
@@ -163,20 +147,7 @@ class plgContentMybooks extends JPlugin
    */
   public function onContentChangeState($context, $pks, $value)
   {
-    // Filter the sent event.
-    if($context == 'com_mybooks.book') {
-      return true;
-    }
-    elseif($context == 'com_categories.category') {
-      // Ensures that the trashed or archived categories are not used as main category by one or more books.
-      if(($value == 2 || $value == -2) && !MybooksHelper::checkMainCategories($pks)) {
-	return false;
-      }
-    }
-    // Hands over to Joomla.
-    else { 
-      return true;
-    }
+    return true;
   }
 
 

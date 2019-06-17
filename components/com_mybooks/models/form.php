@@ -1,7 +1,7 @@
 <?php
 /**
  * @package My Books
- * @copyright Copyright (c) 2017 - 2019 Lucas Sanner
+ * @copyright Copyright (c) 2019 - 2019 Lucas Sanner
  * @license GNU General Public License version 3, or later
  */
 
@@ -139,6 +139,8 @@ class MybooksModelForm extends MybooksModelBook
     $registry = new JRegistry;
     $registry->loadString($item->metadata);
     $item->metadata = $registry->toArray();
+
+    $item->catids = $this->getCategories($item->id);
 
     // Get the book tags.
     $item->tags = new JHelperTags;
