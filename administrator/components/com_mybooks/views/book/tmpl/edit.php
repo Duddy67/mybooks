@@ -15,6 +15,8 @@ JHtml::_('formbehavior.chosen', 'select');
 // Prevent params layout (layouts/joomla/edit/params.php) to display twice some fieldsets.
 $this->ignore_fieldsets = array('details', 'permissions', 'jmetadata');
 $canDo = MybooksHelper::getActions($this->state->get('filter.category_id'));
+//var_dump($this->form->getValue('catids', null, array()));
+//var_dump(serialize($this->unallowed_cats));
 ?>
 
 <script type="text/javascript">
@@ -40,7 +42,7 @@ Joomla.submitbutton = function(task)
       <div class="row-fluid">
 	<div class="span9">
 	    <div class="form-vertical">
-	      <?php echo $this->form->getControlGroup('booktext'); ?>
+	      <?php echo $this->form->renderField('booktext'); ?>
 	    </div>
 	</div>
 	<div class="span3 form-vertical">
@@ -71,6 +73,7 @@ Joomla.submitbutton = function(task)
       <?php endif; ?>
   </div>
 
+  <input type="hidden" name="unallowed_cats" value="<?php echo json_encode($this->unallowed_cats); ?>" />
   <input type="hidden" name="task" value="" />
   <?php echo JHtml::_('form.token'); ?>
 </form>

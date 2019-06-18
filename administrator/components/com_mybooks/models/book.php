@@ -121,6 +121,70 @@ class MybooksModelBook extends JModelAdmin
 
 
   /**
+   * Returns the possible categories in which the user might not be allowed to edit state or
+   * to create.
+   * This method is based on the com_categories getOptions method:
+   * (administrator/components/com_categories/models/fields/categoryedit.php)
+   *
+   * @param   array    $currentCats  The ids of all the categories currently selected.
+   *
+   * @return  array	             The unallowed category ids.
+   */
+  public function getUnallowedCategories($currentCats)
+  {
+    if(empty($currentCats)) {
+      return array();
+    }
+
+    $db = $this->getDbo();
+    $query = $db->getQuery(true);
+    $query->select('id')
+	  ->from('#__categories')
+	  ->where('published IN(0,1)')
+	  ->where('extension="com_mybooks"')
+	  ->order('lft');
+    $db->setQuery($query);
+    $catids = $db->loadColumn();
+
+    $catids = array_map('intval', $catids);
+
+    $oldCat = $currentCats[0];
+    $unallowedCats = array();
+    $user = JFactory::getUser();
+
+    foreach ($catids as $i => $catid)
+    {
+      /*
+       * If you are only allowed to edit in this category but not edit.state, you should not get any
+       * option to change the category parent for a category or the category for a content item,
+       * but you should be able to save in that category.
+       */
+      $assetKey = 'com_mybooks.category.'.$oldCat;
+
+      if($catid != $oldCat && !$user->authorise('core.edit.state', $assetKey)) {
+	$unallowedCats[] = $catid;
+	unset($catids[$i]);
+	continue;
+      }
+
+      /*
+       * However, if you can edit.state you can also move this to another category for which you have
+       * create permission and you should also still be able to save in the current category.
+       */
+      $assetKey = 'com_mybooks.category.'.$oldCat;
+
+      if($catid != $oldCat && !$user->authorise('core.create', $assetKey)) {
+	$unallowedCats[] = $catid;
+	unset($catids[$i]);
+	continue;
+      }
+    }
+
+    return $unallowedCats;
+  }
+
+
+  /**
    * Prepare and sanitise the table data prior to saving.
    *
    * @param   JTable  $table  A JTable object.

@@ -166,6 +166,9 @@ class plgContentMybooks extends JPlugin
   {
     // Retrieves the category array, (N.B: It is not part of the table/data attributes).
     $catIds = $this->post['jform']['catids'];
+    $unallowedCats = json_decode($this->post['unallowed_cats']);
+file_put_contents('debog_file.txt', print_r($unallowedCats, true));
+return;
 
     // Creates a new query object.
     $db = JFactory::getDbo();
@@ -188,7 +191,7 @@ class plgContentMybooks extends JPlugin
       // In order to preserve the ordering of the old categories checks if 
       // they match those newly selected.
       foreach($categories as $category) {
-	if($category->cat_id == $catId) {
+	if($category->cat_id == $catId || in_array($category->cat_id, $unallowedCats)) {
 	  $values[] = $category->book_id.','.$category->cat_id.','.$category->ordering;
 	  $newCat = false; 
 	  break;

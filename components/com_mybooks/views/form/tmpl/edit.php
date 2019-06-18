@@ -18,6 +18,8 @@ JHtml::_('formbehavior.chosen', 'select');
 // Create shortcut to parameters.
 $params = $this->state->get('params');
 $uri = JUri::getInstance();
+var_dump($this->form->getValue('catids', null, array()));
+var_dump($this->unallowed_cats);
 ?>
 
 <script type="text/javascript">
@@ -110,11 +112,14 @@ Joomla.submitbutton = function(task)
 	      </div>
 	    </div>
 
+    <input type="hidden" name="unallowed_cats" value="<?php echo json_encode($this->unallowed_cats); ?>" />
     <input type="hidden" name="task" value="" />
     <input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />
+
     <?php if($this->params->get('enable_category', 0) == 1) :?>
       <input type="hidden" name="jform[catid]" value="<?php echo $this->params->get('catid', 1); ?>" />
     <?php endif; ?>
+
     <?php echo JHtml::_('form.token'); ?>
     </fieldset>
   </form>
