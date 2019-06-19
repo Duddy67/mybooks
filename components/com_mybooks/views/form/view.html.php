@@ -17,7 +17,6 @@ class MybooksViewForm extends JViewLegacy
   protected $return_page = null;
   protected $isNew = 0;
   protected $location = null;
-  public $unallowed_cats = null;
 
 
   /**
@@ -46,7 +45,6 @@ class MybooksViewForm extends JViewLegacy
     $this->state = $this->get('State');
     $this->item = $this->get('Item');
     $this->return_page	= $this->get('ReturnPage');
-    $this->unallowed_cats = $this->getModel()->getUnallowedCategories($this->form->getValue('catids', null, array()));
 
     // Check if the user is allowed to create a new document.
     if(empty($this->item->id)) {

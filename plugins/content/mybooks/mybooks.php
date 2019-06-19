@@ -166,15 +166,14 @@ class plgContentMybooks extends JPlugin
   {
     // Retrieves the category array, (N.B: It is not part of the table/data attributes).
     $catIds = $this->post['jform']['catids'];
+    // Gets the possible unallowed categories.
     $unallowedCats = json_decode($this->post['unallowed_cats']);
-file_put_contents('debog_file.txt', print_r($unallowedCats, true));
-return;
 
     // Creates a new query object.
     $db = JFactory::getDbo();
     $query = $db->getQuery(true);
 
-    // Retrieves all the rows matching the item id.
+    // Gets the old categories linked to the item.
     $query->select('m.book_id, m.cat_id, m.ordering')
 	  ->from('#__mybooks_book_cat_map AS m')
 	  // Inner join in case meanwhile a category has been deleted.
@@ -182,6 +181,17 @@ return;
 	  ->where('m.book_id='.(int)$data->id);
     $db->setQuery($query);
     $categories = $db->loadObjectList();
+
+    // The user has not access to all of the categories.
+    if(!empty($unallowedCats)) {
+      // Loops through the old categories.
+      foreach($categories as $category) {
+	// Preserves the categories the user has no access to.
+	if(in_array($category->cat_id, $unallowedCats)) {
+	  $catIds[] = $category->cat_id;
+	}
+      }
+    }
 
     $values = array();
 
@@ -191,7 +201,7 @@ return;
       // In order to preserve the ordering of the old categories checks if 
       // they match those newly selected.
       foreach($categories as $category) {
-	if($category->cat_id == $catId || in_array($category->cat_id, $unallowedCats)) {
+	if($category->cat_id == $catId) {
 	  $values[] = $category->book_id.','.$category->cat_id.','.$category->ordering;
 	  $newCat = false; 
 	  break;

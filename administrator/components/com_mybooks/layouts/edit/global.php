@@ -58,7 +58,8 @@ foreach ($fields as $field)
 	{
 		if ($form->getField($f))
 		{
-			if (in_array($f, $hiddenFields))
+			// Users with unallowed categories cannot change the main category.
+			if (in_array($f, $hiddenFields) || ($f == 'catid' && !empty($displayData->unallowed_cats)))
 			{
 				$form->setFieldAttribute($f, 'type', 'hidden');
 			}

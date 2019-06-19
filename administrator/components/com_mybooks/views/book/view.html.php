@@ -32,7 +32,8 @@ class MybooksViewBook extends JViewLegacy
     $this->item = $this->get('Item');
     $this->form = $this->get('Form');
     $this->state = $this->get('State');
-    $this->unallowed_cats = $this->getModel()->getUnallowedCategories($this->form->getValue('catids', null, array()));
+    // Needed in the global.php layout.
+    $this->unallowed_cats = $this->item->unallowed_cats;
 
     // Check for errors.
     if(count($errors = $this->get('Errors'))) {

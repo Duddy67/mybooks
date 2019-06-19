@@ -141,6 +141,7 @@ class MybooksModelForm extends MybooksModelBook
     $item->metadata = $registry->toArray();
 
     $item->catids = $this->getCategories($item->id);
+    $item->unallowed_cats = $this->getUnallowedCategories($item->catids);
 
     // Get the book tags.
     $item->tags = new JHelperTags;

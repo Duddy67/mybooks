@@ -18,8 +18,6 @@ JHtml::_('formbehavior.chosen', 'select');
 // Create shortcut to parameters.
 $params = $this->state->get('params');
 $uri = JUri::getInstance();
-var_dump($this->form->getValue('catids', null, array()));
-var_dump($this->unallowed_cats);
 ?>
 
 <script type="text/javascript">
@@ -75,44 +73,48 @@ Joomla.submitbutton = function(task)
 
 	<div class="tab-content">
 	    <div class="tab-pane active" id="details">
-	      <?php echo $this->form->renderField('title'); ?>
-	      <?php echo $this->form->renderField('alias'); ?>
-
-	      <?php
-		echo $this->form->getControlGroup('booktext');
+	      <?php echo $this->form->renderField('title'); 
+		    echo $this->form->renderField('alias'); 
+		    echo $this->form->renderField('booktext');
 	      ?>
 	      </div>
 
 	      <div class="tab-pane" id="publishing">
-		<?php echo $this->form->getControlGroup('catids'); 
+		<?php echo $this->form->renderField('catids'); 
 
 		      // Existing item.
-		      if($this->form->getValue('id') != 0) {
-		        echo $this->form->getControlGroup('catid'); 
+		      if($this->form->getValue('id') != 0 && empty($this->item->unallowed_cats)) {
+		        echo $this->form->renderField('catid'); 
 		      }
 			
-		      echo $this->form->getControlGroup('tags'); 
-		      echo $this->form->getControlGroup('access');
+		      // Users with unallowed categories cannot change the main category.
+		      if(!empty($this->item->unallowed_cats)) {
+			$this->form->setFieldAttribute('catid', 'type', 'hidden'); 
+			echo $this->form->getInput('catid');
+		      }
+
+		      echo $this->form->renderField('tags'); 
+		      echo $this->form->renderField('access');
 		  ?>
 
 		<?php if($this->item->params->get('access-change')) : ?>
-		  <?php echo $this->form->getControlGroup('published'); ?>
-		  <?php echo $this->form->getControlGroup('publish_up'); ?>
-		  <?php echo $this->form->getControlGroup('publish_down'); ?>
+		  <?php echo $this->form->renderField('published'); ?>
+		  <?php echo $this->form->renderField('publish_up'); ?>
+		  <?php echo $this->form->renderField('publish_down'); ?>
 		<?php endif; ?>
 	      </div>
 
 	      <div class="tab-pane" id="language">
-		<?php echo $this->form->getControlGroup('language'); ?>
+		<?php echo $this->form->renderField('language'); ?>
 	      </div>
 
 	      <div class="tab-pane" id="metadata">
-		<?php echo $this->form->getControlGroup('metadesc'); ?>
-		<?php echo $this->form->getControlGroup('metakey'); ?>
+		<?php echo $this->form->renderField('metadesc'); ?>
+		<?php echo $this->form->renderField('metakey'); ?>
 	      </div>
 	    </div>
 
-    <input type="hidden" name="unallowed_cats" value="<?php echo json_encode($this->unallowed_cats); ?>" />
+    <input type="hidden" name="unallowed_cats" value="<?php echo json_encode($this->item->unallowed_cats); ?>" />
     <input type="hidden" name="task" value="" />
     <input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />
 

@@ -91,6 +91,7 @@ class MybooksModelBook extends JModelAdmin
 	$item->tags->getTagIds($item->id, 'com_mybooks.book');
 
 	$item->catids = $this->getCategories();
+	$item->unallowed_cats = $this->getUnallowedCategories($item->catids);
       }
     }
 
@@ -100,6 +101,7 @@ class MybooksModelBook extends JModelAdmin
 
   /**
    * Returns the id of the categories bound to a given item.
+   * N.B: The main category id is always placed at the beginning of the result array.
    *
    * @param   integer  $pk  The id of the primary key.
    *
@@ -108,15 +110,36 @@ class MybooksModelBook extends JModelAdmin
   public function getCategories($pk = null)
   {
     $pk = (!empty($pk)) ? $pk : (int)$this->getState($this->getName().'.id');
+    $catids = array();
+    $mainCatId = null;
 
     $db = $this->getDbo();
     $query = $db->getQuery(true);
-    $query->select('cat_id')
+    $query->select('cat_id, catid')
 	  ->from('#__mybooks_book_cat_map')
+	  // Gets the main category (ie: catid).
+	  ->join('LEFT', '#__mybooks_book ON id=book_id')
 	  ->where('book_id='.(int)$pk);
     $db->setQuery($query);
+    $results = $db->loadAssocList();
 
-    return $db->loadColumn();
+    if(!empty($results)) {
+      // Searches the main category.
+      foreach($results as $result) {
+	if($result['cat_id'] == $result['catid']) {
+	  // Saves the main category id.
+	  $mainCatId = $result['cat_id'];
+	}
+	else {
+	  $catids[] = $result['cat_id'];
+	}
+      }
+
+      // Inserts the main category id at the beginning of the array.
+      array_unshift($catids, $mainCatId);
+    }
+
+    return $catids;
   }
 
 
@@ -132,28 +155,31 @@ class MybooksModelBook extends JModelAdmin
    */
   public function getUnallowedCategories($currentCats)
   {
+    // New item.
     if(empty($currentCats)) {
       return array();
     }
 
     $db = $this->getDbo();
     $query = $db->getQuery(true);
+    // Gets all the (published/unpublished) component categories. 
     $query->select('id')
 	  ->from('#__categories')
 	  ->where('published IN(0,1)')
 	  ->where('extension="com_mybooks"')
 	  ->order('lft');
     $db->setQuery($query);
-    $catids = $db->loadColumn();
+    // Converts the string array values in integer values.
+    // Needed to pass the array through the form properly.
+    $catids = array_map('intval', $db->loadColumn());
 
-    $catids = array_map('intval', $catids);
 
+    // Gets the main category id (always at the beginning of the array).
     $oldCat = $currentCats[0];
     $unallowedCats = array();
     $user = JFactory::getUser();
 
-    foreach ($catids as $i => $catid)
-    {
+    foreach ($catids as $i => $catid) {
       /*
        * If you are only allowed to edit in this category but not edit.state, you should not get any
        * option to change the category parent for a category or the category for a content item,
