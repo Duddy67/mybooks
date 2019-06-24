@@ -13,7 +13,8 @@ JHtml::_('behavior.framework');
 
 // Create a shortcut for params.
 $item = $displayData['item'];
-$params = $displayData['params'];
+$params = $item->params;
+$catid = (isset($displayData['current_cat_id'])) ? $displayData['current_cat_id'] : $item->catid;
 $nowDate = $displayData['now_date'];
 ?>
 
@@ -23,7 +24,7 @@ $nowDate = $displayData['now_date'];
 	    <h2>
 	      <?php if($params->get('link_title') && $params->get('access-view')) :
 
-		    $link = JRoute::_(MybooksHelperRoute::getBookRoute($item->slug, $item->catid, $item->language));
+		    $link = JRoute::_(MybooksHelperRoute::getBookRoute($item->slug, $catid, $item->language));
 	      ?>
 		<a href="<?php echo $link; ?>">
 		      <?php echo $this->escape($item->title); ?></a>

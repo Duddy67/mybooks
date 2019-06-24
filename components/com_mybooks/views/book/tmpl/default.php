@@ -14,6 +14,16 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 // Create some shortcuts.
 $params = $this->item->params;
 $item = $this->item;
+
+// Sets the canonical url of the item.
+$domain = str_replace(JUri::root(true), '', JUri::root());
+$domain = preg_replace('#\/$#', '', $domain);
+// Uses the main category id. 
+$link = $domain.JRoute::_(MybooksHelperRoute::getBookRoute($this->item->slug, $this->item->catid, $this->item->language));
+$canUrl = '<link href="'.$link.'" rel="canonical" />';
+// Inserts the canonical link in HTML head.
+$document = JFactory::getDocument();
+$document->addCustomTag($canUrl);
 ?>
 
 <div class="item-page<?php echo $this->pageclass_sfx; ?>" itemscope itemtype="http://schema.org/Book">
@@ -23,7 +33,7 @@ $item = $this->item;
     </div>
   <?php endif; ?>
 
-  <?php echo JLayoutHelper::render('book.title', array('item' => $item, 'params' => $params, 'now_date' => $this->nowDate)); ?>
+  <?php echo JLayoutHelper::render('book.title', array('item' => $item, 'now_date' => $this->nowDate)); ?>
 
   <?php echo JLayoutHelper::render('book.icons', array('item' => $this->item, 'user' => $this->user, 'uri' => $this->uri)); ?>
 

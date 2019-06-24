@@ -56,13 +56,13 @@ if(!empty($this->items)) {
 		$active = $menu->getActive();
 		$itemId = $active->id;
 		$link1 = JRoute::_('index.php?option=com_users&view=login&Itemid='.$itemId);
-		$returnURL = JRoute::_(MybooksHelperRoute::getBookRoute($item->slug, $item->catid));
+		$returnURL = JRoute::_(MybooksHelperRoute::getBookRoute($item->slug, $this->state->get('category.id'), $item->language));
 		$link = new JUri($link1);
 		$link->setVar('return', base64_encode($returnURL));
 	      endif; ?>
 
 	<?php if($item->params->get('access-view')) : // Set the link to the book page.
-	      $link = JRoute::_(MybooksHelperRoute::getBookRoute($item->slug, $item->catid));
+	      $link = JRoute::_(MybooksHelperRoute::getBookRoute($item->slug, $this->state->get('category.id'), $item->language));
 	  endif; ?>
 
 	  <a href="<?php echo $link;?>"><?php echo $this->escape($item->title); ?></a>

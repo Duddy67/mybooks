@@ -362,7 +362,8 @@ class MybooksRouterRulesLegacy implements JComponentRouterRulesInterface
 	  $query = $db->getQuery(true)
 		  ->select($db->quoteName('id'))
 		  ->from('#__mybooks_book')
-		  ->where($db->quoteName('catid').'='.(int) $vars['catid'])
+		  ->join('INNER', '#__mybooks_book_cat_map ON book_id=id')
+		  ->where($db->quoteName('cat_id').'='.(int) $vars['catid'])
 		  ->where($db->quoteName('alias').'='.$db->quote($segment));
 	  $db->setQuery($query);
 	  $nid = $db->loadResult();

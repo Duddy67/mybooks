@@ -44,6 +44,7 @@ class MybooksViewBook extends JViewLegacy
       return false;
     }
 
+    $this->item->slug = $this->item->alias ? ($this->item->id.':'.$this->item->alias) : $this->item->id;
     // Compute the category slug.
     $this->item->catslug = $this->item->category_alias ? ($this->item->catid.':'.$this->item->category_alias) : $this->item->catid;
     // Get the possible extra class name.

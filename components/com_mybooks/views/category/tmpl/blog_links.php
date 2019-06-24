@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 <ol class="nav nav-tabs nav-stacked">
 <?php foreach ($this->link_items as &$item) : ?>
 	<li>
-	  <a href="<?php echo JRoute::_(MybooksHelperRoute::getBookRoute($item->slug, $item->catid, $item->language)); ?>">
+	  <a href="<?php echo JRoute::_(MybooksHelperRoute::getBookRoute($item->slug, $this->state->get('category.id'), $item->language)); ?>">
 		      <?php echo $item->title; ?></a>
 	</li>
 <?php endforeach; ?>

@@ -209,8 +209,9 @@ class MybooksRouter extends JComponentRouterView
       $dbquery = $db->getQuery(true);
       $dbquery->select($dbquery->qn('id'))
 	      ->from($dbquery->qn('#__mybooks_book'))
+	      ->join('INNER', $dbquery->qn('#__mybooks_book_cat_map').' ON book_id=id')
 	      ->where('alias='.$dbquery->q($segment))
-	      ->where('catid='.$dbquery->q($query['id']));
+	      ->where('cat_id='.$dbquery->q($query['id']));
       $db->setQuery($dbquery);
 
       return (int) $db->loadResult();

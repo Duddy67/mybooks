@@ -16,7 +16,7 @@ $params = $this->item->params;
 ?>
 
 <div class="book-item">
-  <?php echo JLayoutHelper::render('book.title', array('item' => $this->item, 'params' => $params, 'now_date' => $this->nowDate)); ?>
+  <?php echo JLayoutHelper::render('book.title', array('item' => $this->item, 'current_cat_id' => $this->state->get('category.id'), 'now_date' => $this->nowDate)); ?>
 
   <?php echo JLayoutHelper::render('book.icons', array('item' => $this->item, 'user' => $this->user, 'uri' => $this->uri)); ?>
 
@@ -41,13 +41,13 @@ $params = $this->item->params;
 
   <?php if($params->get('show_readmore') && !empty($this->item->full_text)) :
 	  if($params->get('access-view')) :
-	    $link = JRoute::_(MybooksHelperRoute::getBookRoute($this->item->slug, $this->item->catid, $this->item->language));
+	    $link = JRoute::_(MybooksHelperRoute::getBookRoute($this->item->slug, $this->state->get('category.id'), $this->item->language));
 	  else : // Redirect the user to the login page.
 	    $menu = JFactory::getApplication()->getMenu();
 	    $active = $menu->getActive();
 	    $itemId = $active->id;
 	    $link = new JUri(JRoute::_('index.php?option=com_users&view=login&Itemid='.$itemId, false));
-	    $link->setVar('return', base64_encode(JRoute::_(MybooksHelperRoute::getBookRoute($this->item->slug, $this->item->catid, $this->item->language), false)));
+	    $link->setVar('return', base64_encode(JRoute::_(MybooksHelperRoute::getBookRoute($this->item->slug, $this->state->get('category.id'), $this->item->language), false)));
 	  endif; ?>
 
 	<?php echo JLayoutHelper::render('book.readmore', array('item' => $this->item, 'params' => $params, 'link' => $link)); ?>
