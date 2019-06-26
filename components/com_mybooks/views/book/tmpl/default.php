@@ -16,9 +16,10 @@ $params = $this->item->params;
 $item = $this->item;
 
 // Sets the canonical url of the item.
-$domain = str_replace(JUri::root(true), '', JUri::root());
-$domain = preg_replace('#\/$#', '', $domain);
-// Uses the main category id. 
+
+// Gets the current protocol and domain name without path (if any).
+$domain = preg_replace('#'.JUri::root(true).'/$#', '', JUri::root());
+// Uses the main category to build the canonical url. 
 $link = $domain.JRoute::_(MybooksHelperRoute::getBookRoute($this->item->slug, $this->item->catid, $this->item->language));
 $canUrl = '<link href="'.$link.'" rel="canonical" />';
 // Inserts the canonical link in HTML head.
