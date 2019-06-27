@@ -14,8 +14,8 @@
 			<option value="rorder">COM_MYBOOKS_ORDERING_ORDERING_DESC</option>
 			<option value="alpha">COM_MYBOOKS_ORDERING_TITLE_ASC</option>
 			<option value="ralpha">COM_MYBOOKS_ORDERING_TITLE_DESC</option>
-			<option value="author">COM_MYBOOKS_ORDERING_AUTHOR_ASC</option>
-			<option value="rauthor">COM_MYBOOKS_ORDERING_AUTHOR_DESC</option>
+			<option value="creator">COM_MYBOOKS_ORDERING_CREATOR_ASC</option>
+			<option value="rcreator">COM_MYBOOKS_ORDERING_CREATOR_DESC</option>
 			<option value="date">COM_MYBOOKS_ORDERING_DATE_ASC</option>
 			<option value="rdate">COM_MYBOOKS_ORDERING_DATE_DESC</option>
 			<option value="hits">COM_MYBOOKS_ORDERING_HITS_ASC</option>

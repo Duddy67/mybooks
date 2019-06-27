@@ -22,7 +22,7 @@ $params = $this->item->params;
 
   <?php $useDefList = ($params->get('show_modify_date') || $params->get('show_publish_date') || $params->get('show_create_date')
 		       || $params->get('show_hits') || $params->get('show_category') || $params->get('show_parent_category')
-		       || $params->get('show_author') ); ?>
+		       || $params->get('show_creator') ); ?>
 
   <?php if ($useDefList) : ?>
     <?php echo JLayoutHelper::render('book.info_block', array('item' => $this->item, 'params' => $params)); ?>

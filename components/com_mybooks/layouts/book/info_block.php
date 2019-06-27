@@ -11,10 +11,10 @@ defined('JPATH_BASE') or die('Restricted access');
 
 <dl class="article-info muted">
 
-  <?php if($displayData['params']->get('show_author') && !empty($displayData['item']->author )) : ?>
-    <dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
-	<?php $author = '<span itemprop="name">'.$displayData['item']->author.'</span>'; ?>
-	<?php echo JText::sprintf('COM_MYBOOKS_WRITTEN_BY', $author); ?>
+  <?php if($displayData['params']->get('show_creator') && !empty($displayData['item']->creator )) : ?>
+    <dd class="createdby" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+	<?php $creator = '<span itemprop="name">'.$displayData['item']->creator.'</span>'; ?>
+	<?php echo JText::sprintf('COM_MYBOOKS_WRITTEN_BY', $creator); ?>
     </dd>
   <?php endif; ?>
 

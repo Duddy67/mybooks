@@ -210,11 +210,11 @@
 	       <option value="0">JNO</option>
 	</field>
 
-	<field name="show_author"
+	<field name="show_creator"
 	       type="list"
 	       class="chzn-color"
-	       label="JGLOBAL_SHOW_AUTHOR_LABEL"
-	       description="COM_MYBOOKS_SHOW_AUTHOR_DESC">
+	       label="COM_MYBOOKS_SHOW_CREATOR_LABEL"
+	       description="COM_MYBOOKS_SHOW_CREATOR_DESC">
 	       <option value="">JGLOBAL_USE_GLOBAL</option>
 	       <option value="1">JSHOW</option>
 	       <option value="0">JHIDE</option>

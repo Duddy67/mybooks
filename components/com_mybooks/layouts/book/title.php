@@ -18,7 +18,7 @@ $catid = (isset($displayData['current_cat_id'])) ? $displayData['current_cat_id'
 $nowDate = $displayData['now_date'];
 ?>
 
-<?php if($params->get('show_title') || $item->published == 0 || ($params->get('show_author') && !empty($item->author))) : ?>
+<?php if($params->get('show_title') || $item->published == 0 || ($params->get('show_creator') && !empty($item->creator))) : ?>
   <div class="page-header">
     <?php if($params->get('show_title')) : ?>
 	    <h2>

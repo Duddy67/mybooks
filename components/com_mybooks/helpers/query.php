@@ -90,12 +90,12 @@ class MybooksHelperQuery
 	      $orderby = 'b.ordering DESC';
 	      break;
 
-      case 'author' :
-	      $orderby = 'author';
+      case 'creator' :
+	      $orderby = 'creator';
 	      break;
 
-      case 'rauthor' :
-	      $orderby = 'author DESC';
+      case 'rcreator' :
+	      $orderby = 'creator DESC';
 	      break;
 
       default :

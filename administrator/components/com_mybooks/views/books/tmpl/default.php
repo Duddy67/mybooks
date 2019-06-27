@@ -99,7 +99,7 @@ echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this))
 	  <?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ACCESS', 'b.access', $listDirn, $listOrder); ?>
 	</th>
 	<th width="10%" class="nowrap hidden-phone">
-	<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_CREATED_BY', 'user', $listDirn, $listOrder); ?>
+	<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_CREATED_BY', 'creator', $listDirn, $listOrder); ?>
 	</th>
 	<th width="5%" class="nowrap hidden-phone">
 	  <?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
@@ -190,7 +190,7 @@ echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this))
 	    <?php echo $this->escape($item->access_level); ?>
 	  </td>
 	  <td class="small hidden-phone">
-	    <?php echo $this->escape($item->user); ?>
+	    <?php echo $this->escape($item->creator); ?>
 	  </td>
 	  <td class="small hidden-phone">
 	    <?php if ($item->language == '*'):?>

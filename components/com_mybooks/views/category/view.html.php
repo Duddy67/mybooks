@@ -237,8 +237,8 @@ class MybooksViewCategory extends JViewCategory
       $this->category->metadata = new Registry($this->category->metadata);
     }
 
-    if(($app->get('MetaAuthor') == '1') && $this->category->get('author', '')) {
-      $this->document->setMetaData('author', $this->category->get('author', ''));
+    if(($app->get('MetaAuthor') == '1') && $this->category->get('creator', '')) {
+      $this->document->setMetaData('creator', $this->category->get('creator', ''));
     }
 
     $mdata = $this->category->metadata->toArray();

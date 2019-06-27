@@ -137,7 +137,7 @@
 			<option value="">JGLOBAL_USE_GLOBAL</option>
 			<option value="hide">JHIDE</option>
 			<option value="title">JGLOBAL_TITLE</option>
-			<option value="author">JAUTHOR</option>
+			<option value="creator">COM_MYBOOKS_CREATOR_TITLE</option>
 		</field>
 
 		<field name="filter_ordering" type="list"
@@ -164,10 +164,10 @@
 
 		<field name="spacer1" type="spacer" hr="true" />
 
-		<field name="list_show_author"
+		<field name="list_show_creator"
 			type="list"
-			label="COM_MYBOOKS_FIELD_SHOW_AUTHOR_LABEL"
-			description="COM_MYBOOKS_FIELD_SHOW_AUTHOR_DESC">
+			label="COM_MYBOOKS_SHOW_CREATOR_LABEL"
+			description="COM_MYBOOKS_SHOW_CREATOR_DESC">
 			<option value="">JGLOBAL_USE_GLOBAL</option>
 			<option value="1">JSHOW</option>
 			<option value="0">JHIDE</option>
@@ -208,8 +208,8 @@
 			<option value="date">JGLOBAL_OLDEST_FIRST</option>
 			<option value="alpha">COM_MYBOOKS_TITLE_ALPHABETICAL</option>
 			<option value="ralpha">COM_MYBOOKS_TITLE_REVERSE_ALPHABETICAL</option>
-			<option value="author">JGLOBAL_AUTHOR_ALPHABETICAL</option>
-			<option value="rauthor">JGLOBAL_AUTHOR_REVERSE_ALPHABETICAL</option>
+			<option value="creator">COM_MYBOOKS_CREATOR_ALPHABETICAL</option>
+			<option value="rcreator">COM_MYBOOKS_CREATOR_REVERSE_ALPHABETICAL</option>
 			<option value="hits">JGLOBAL_MOST_HITS</option>
 			<option value="rhits">JGLOBAL_LEAST_HITS</option>
 			<option value="order">JGLOBAL_ARTICLE_MANAGER_ORDER</option>
@@ -330,10 +330,10 @@
 		       <option value="0">JNO</option>
 		</field>
 
-		<field name="show_author"
+		<field name="show_creator"
 		       type="list"
-		       label="JGLOBAL_SHOW_AUTHOR_LABEL"
-		       description="COM_MYBOOKS_SHOW_AUTHOR_DESC">
+		       label="COM_MYBOOKS_SHOW_CREATOR_LABEL"
+		       description="COM_MYBOOKS_SHOW_CREATOR_DESC">
 		       <option value="">JGLOBAL_USE_GLOBAL</option>
 		       <option value="use_book">COM_MYBOOKS_FIELD_VALUE_USE_BOOK_SETTINGS</option>
 		       <option value="1">JSHOW</option>

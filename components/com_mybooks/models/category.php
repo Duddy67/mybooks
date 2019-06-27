@@ -76,7 +76,7 @@ class MybooksModelCategory extends JModelList
       $config['filter_fields'] = array(
 	      'id', 'b.id',
 	      'title', 'b.title',
-	      'author', 'b.author',
+	      'creator', 'b.creator',
 	      'created', 'b.created',
 	      'catid', 'b.catid', 'cm.cat_id', 'category_title',
 	      'modified', 'b.modified',
@@ -349,8 +349,8 @@ class MybooksModelCategory extends JModelList
     $query->select('parent.title as parent_title, parent.id as parent_id, parent.path as parent_route, parent.alias as parent_alias')
 	  ->join('LEFT', '#__categories as parent ON parent.id = ca.parent_id');
 
-    // Join over the users.
-    $query->select('us.name AS author')
+    // Join over the creators.
+    $query->select('us.name AS creator')
 	  ->join('LEFT', '#__users AS us ON us.id = b.created_by');
 
     // Join over the asset groups.

@@ -30,7 +30,7 @@ if(!empty($this->items)) {
     <th id="categorylist_header_title">
       <?php echo JText::_('JGLOBAL_TITLE'); ?>
     </th>
-    <?php if($this->params->get('list_show_author')) : ?>
+    <?php if($this->params->get('list_show_creator')) : ?>
       <th width="25%">
 	<?php echo JText::_('COM_MYBOOKS_HEADING_CREATE_BY'); ?>
       </th>
@@ -68,9 +68,9 @@ if(!empty($this->items)) {
 	  <a href="<?php echo $link;?>"><?php echo $this->escape($item->title); ?></a>
 
 	  </td>
-	  <?php if($this->params->get('list_show_author')) : ?>
+	  <?php if($this->params->get('list_show_creator')) : ?>
 	    <td>
-	      <?php echo $this->escape($item->author); ?>
+	      <?php echo $this->escape($item->creator); ?>
 	    </td>
 	  <?php endif; ?>
 	  <?php if($this->params->get('list_show_date')) : ?>

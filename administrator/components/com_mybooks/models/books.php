@@ -31,7 +31,7 @@ class MybooksModelBooks extends JModelList
 				       'created_by', 'b.created_by',
 				       'published', 'b.published', 
 			               'access', 'b.access', 'access_level',
-				       'user', 'user_id',
+				       'creator', 'user_id',
 				       'ordering', 'cm.ordering',
 				       'language', 'b.language',
 				       'hits', 'b.hits',
@@ -165,8 +165,8 @@ class MybooksModelBooks extends JModelList
 				   'cm.ordering,b.created_by,b.checked_out,b.checked_out_time,b.language'))
 	  ->from('#__mybooks_book AS b');
 
-    // Get the user name.
-    $query->select('us.name AS user')
+    // Get the creator name.
+    $query->select('us.name AS creator')
 	  ->join('LEFT', '#__users AS us ON us.id = b.created_by');
 
     // Join over the users for the checked out user.
@@ -242,7 +242,7 @@ class MybooksModelBooks extends JModelList
       $query->where('(b.published IN (0, 1))');
     }
 
-    // Filter by user.
+    // Filter by creator.
     $userId = $this->getState('filter.user_id');
 
     if(is_numeric($userId)) {
