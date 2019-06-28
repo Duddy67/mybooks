@@ -88,8 +88,7 @@ class MybooksHelper
     $query = $db->getQuery(true);
     $query->select('u.id AS value, u.name AS text');
     $query->from('#__users AS u');
-    // Gets only the names of users who have created items, this avoids to
-    // display all of the users in the drop down list.
+    // Gets only the names of users who have created items (ie: creators).
     $query->join('INNER', '#__mybooks_'.$itemName.' AS i ON i.created_by = u.id');
     $query->group('u.id');
     $query->order('u.name');
