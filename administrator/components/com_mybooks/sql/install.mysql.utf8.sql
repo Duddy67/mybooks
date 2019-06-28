@@ -38,7 +38,7 @@ ENGINE = MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 -- -----------------------------------------------------
 -- Table `#__mybooks_book_cat_map`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `#__mybooks_book_cat_map
+DROP TABLE IF EXISTS `#__mybooks_book_cat_map`;
 CREATE TABLE `#__mybooks_book_cat_map` (
   `book_id` INT UNSIGNED NOT NULL ,
   `cat_id` INT UNSIGNED NOT NULL ,
