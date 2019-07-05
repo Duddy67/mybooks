@@ -40,8 +40,7 @@ class MybooksViewBook extends JViewLegacy
 
     // Check for errors.
     if(count($errors = $this->get('Errors'))) {
-      JFactory::getApplication()->enqueueMessage($errors, 'error');
-      return false;
+      throw new Exception(implode("\n", $errors), 500);
     }
 
     $this->item->slug = $this->item->alias ? ($this->item->id.':'.$this->item->alias) : $this->item->id;

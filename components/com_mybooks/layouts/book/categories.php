@@ -11,9 +11,9 @@ defined('JPATH_BASE') or die('Restricted access');
 $categories = $displayData['item']->categories;
 ?>
 
-<ul class="tags inline">
+<ul class="categories inline">
 <?php foreach($categories as $category) : ?> 
-  <li class="tag-<?php echo $tag->tag_id; ?> tag-list0" itemprop="keywords">
+  <li class="category-<?php echo $category->id; ?> category-list0" itemprop="keywords">
     <?php // No need link for the current category (used in category view). 
 	  if(isset($displayData['current_cat_id']) && $displayData['current_cat_id'] == $category->id) : ?> 
       <span class="label label-default"><?php echo $this->escape($category->title); ?></span>

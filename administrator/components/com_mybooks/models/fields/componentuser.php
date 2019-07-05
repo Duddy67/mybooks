@@ -34,7 +34,7 @@ class JFormFieldComponentuser extends JFormFieldList
   public function getOptions()
   {
     // Get the item name from the form filter name. 
-    preg_match('#^com_mybooks\.([a-zA-Z0-9_-]+)\.filter$#', $this->form->getName(), $matches);
+    preg_match('#^com_mybooks\.([a-zA-Z0-9_-]+)(?:\.modal)?\.filter$#', $this->form->getName(), $matches);
     $itemName = $matches[1];
     // We need the item name in the singular in order to build the SQL table name.
     if(preg_match('#ies$#', $itemName)) { 

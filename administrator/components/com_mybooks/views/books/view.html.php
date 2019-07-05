@@ -36,8 +36,7 @@ class MybooksViewBooks extends JViewLegacy
 
     // Checks for errors.
     if(count($errors = $this->get('Errors'))) {
-      JFactory::getApplication()->enqueueMessage($errors, 'error');
-      return false;
+      throw new Exception(implode("\n", $errors), 500);
     }
 
     $this->addToolBar();
