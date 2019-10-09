@@ -126,4 +126,3 @@ Joomla.submitbutton = function(task)
     </fieldset>
   </form>
 </div>
-
